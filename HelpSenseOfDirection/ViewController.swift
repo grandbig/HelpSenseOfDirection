@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import GoogleMaps
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GMSMapViewDelegate {
 
+    @IBOutlet weak var mapView: GMSMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.mapView.isMyLocationEnabled = true
+        self.mapView.mapType = GMSMapViewType.normal
+        self.mapView.settings.compassButton = true
+        self.mapView.settings.myLocationButton = true
+        self.mapView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
