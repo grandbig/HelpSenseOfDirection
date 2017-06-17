@@ -27,6 +27,8 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use your location to save it and display it on the Map</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Use your location to save it and display it on the Map</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
