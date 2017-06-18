@@ -6,6 +6,8 @@ target "HelpSenseOfDirection" do
   pod 'RealmSwift'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Alamofire', '~> 4.4'
+  pod 'SwiftyJSON'
 
   abstract_target 'Tests' do
     inherit! :search_paths

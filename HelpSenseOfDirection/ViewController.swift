@@ -64,4 +64,12 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             self.initView = true
         }
     }
+    
+    // MARK: Button Action
+    @IBAction func start(_ sender: Any) {
+        let geo = Geocoding.init()
+        geo.geocoding(address: "東京都") { (coordinate: CLLocationCoordinate2D) in
+            print("\(coordinate.latitude), \(coordinate.longitude)")
+        }
+    }
 }

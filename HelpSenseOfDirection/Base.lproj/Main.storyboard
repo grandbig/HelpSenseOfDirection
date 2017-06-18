@@ -25,11 +25,40 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TgJ-gW-1Ki">
+                                <rect key="frame" x="8" y="577" width="56" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="WSt-sg-23C"/>
+                                    <constraint firstAttribute="width" constant="56" id="rZk-5Y-bKj"/>
+                                </constraints>
+                                <state key="normal" image="PlayIcon"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="28"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowIBColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="2" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r21-7Q-Cq0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TgJ-gW-1Ki" secondAttribute="bottom" constant="34" id="5n2-76-fBP"/>
                             <constraint firstItem="i0O-FJ-uOQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9v6-ag-b1R"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="i0O-FJ-uOQ" secondAttribute="bottom" id="FsN-XT-ryI"/>
+                            <constraint firstItem="TgJ-gW-1Ki" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="bLW-bZ-W7j"/>
                             <constraint firstItem="i0O-FJ-uOQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="giY-v8-BOS"/>
                             <constraint firstAttribute="trailing" secondItem="i0O-FJ-uOQ" secondAttribute="trailing" id="pNv-Ty-ApS"/>
                         </constraints>
@@ -48,7 +77,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FNS-S7-6wg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7hy-Bf-836">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7hy-Bf-836">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -62,4 +91,7 @@
             <point key="canvasLocation" x="240.80000000000001" y="-545.57721139430294"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="PlayIcon" width="48" height="48"/>
+    </resources>
 </document>
