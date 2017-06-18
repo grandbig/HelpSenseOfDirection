@@ -15,7 +15,6 @@
 		2E8351691EF57E7C004E162C /* HelpSenseOfDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351681EF57E7C004E162C /* HelpSenseOfDirectionTests.swift */; };
 		2E8351741EF57E7C004E162C /* HelpSenseOfDirectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351731EF57E7C004E162C /* HelpSenseOfDirectionUITests.swift */; };
 		2E8351841EF58BC9004E162C /* key.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351831EF58BC9004E162C /* key.plist */; };
-		2E8351861EF598E0004E162C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8351851EF598E0004E162C /* CoreLocation.framework */; };
 		89EE90D27F477070A059082F /* Pods_HelpSenseOfDirection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A66E323BDF883AC88D0FF08 /* Pods_HelpSenseOfDirection.framework */; };
 		AFD7F9C2BF17A98F2A8A2867 /* Pods_Tests_HelpSenseOfDirectionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCC32DC622DEBB72A08D6E2 /* Pods_Tests_HelpSenseOfDirectionUITests.framework */; };
 		F71EC29525A876A82AC2C2C6 /* Pods_Tests_HelpSenseOfDirectionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46075BE42C3F54B0C3F008FC /* Pods_Tests_HelpSenseOfDirectionTests.framework */; };
@@ -70,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E8351861EF598E0004E162C /* CoreLocation.framework in Frameworks */,
 				89EE90D27F477070A059082F /* Pods_HelpSenseOfDirection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +183,7 @@
 				2E83514E1EF57E7C004E162C /* Resources */,
 				C17999F3FE1D568C14895680 /* [CP] Embed Pods Frameworks */,
 				CACE71965DE37B2EB2B6342B /* [CP] Copy Pods Resources */,
+				2E8351881EF68ED8004E162C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -352,6 +351,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests-HelpSenseOfDirectionTests/Pods-Tests-HelpSenseOfDirectionTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2E8351881EF68ED8004E162C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "1\n2\n3\n4\n5\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		353A10051EC3D98E1EF9C804 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
