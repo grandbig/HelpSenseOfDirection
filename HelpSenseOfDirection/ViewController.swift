@@ -67,9 +67,76 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     
     // MARK: Button Action
     @IBAction func start(_ sender: Any) {
-        let geo = Geocoding.init()
-        geo.geocoding(address: "東京都") { (coordinate: CLLocationCoordinate2D) in
-            print("\(coordinate.latitude), \(coordinate.longitude)")
+        self.showTextComfirm(title: "確認", message: "目的地を入力してください", okCompletion: { (address: String) in
+            // OKした場合
+            let geo = Geocoding.init()
+            geo.geocoding(address: address) { (coordinate: CLLocationCoordinate2D) in
+                print("\(coordinate.latitude), \(coordinate.longitude)")
+                self.putMarker(title: "目的地", latitude: coordinate.latitude, longitude: coordinate.longitude)
+            }
+        }) { 
+            // キャンセルした場合
         }
+    }
+    
+    // MARK: Other
+    /**
+     TextField付き確認モーダルの表示処理
+     
+     - parameter title: アラートのタイトル
+     - parameter message: アラートのメッセージ
+     - parameter okCompletion: OKタップ時のCallback
+     - parameter cancelCompletion: Cancelタップ時のCallback
+     */
+    private func showTextComfirm(title: String, message: String, okCompletion: @escaping ((String) -> Void), cancelCompletion: @escaping (() -> Void)) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
+            if let enteredText = alert.textFields?[0].text {
+                okCompletion(enteredText)
+                return
+            }
+            self.showAlert(title: "Alert", message: "Please input the text.", completion: {
+                cancelCompletion()
+            })
+        }
+        let cancelAction = UIAlertAction.init(title: "キャンセル", style: UIAlertActionStyle.cancel) { _ in
+            cancelCompletion()
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        alert.addTextField { _ in
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     警告モーダルの表示処理
+     
+     - parameter title: アラートのタイトル
+     - parameter message: アラートのメッセージ
+     - parameter completion: OKタップ時のCallback
+     */
+    private func showAlert(title: String, message: String, completion: @escaping (() -> Void)) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
+            completion()
+        }
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     マップにマーカを設置する処理
+     
+     - parameter title: マーカのタイトル
+     - parameter latitude: 緯度
+     - parameter longitude: 経度
+     */
+    private func putMarker(title: String, latitude: Double, longitude: Double) {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let marker = GMSMarker(position: coordinate)
+        marker.title = title
+        marker.map = self.mapView
     }
 }

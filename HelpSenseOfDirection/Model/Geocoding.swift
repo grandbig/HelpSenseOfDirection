@@ -40,15 +40,16 @@ class Geocoding {
         let requestURL = "\(baseURL)&key=\(String(describing: self.apiKey))"
         Alamofire.request(requestURL, method: .get, parameters: ["address": address], encoding: URLEncoding.default, headers: nil).responseJSON { response in
             let json = JSON(response.result.value as Any)
-            guard let latitude = json["results"][0]["geometry"]["location"]["lat"].string else {
+            
+            guard let latitude = json["results"][0]["geometry"]["location"]["lat"].double else {
                 return
             }
             
-            guard let longitude = json["results"][0]["geometry"]["location"]["lng"].string else {
+            guard let longitude = json["results"][0]["geometry"]["location"]["lng"].double else {
                 return
             }
             
-            completion(CLLocationCoordinate2D.init(latitude: atof(latitude), longitude: atof(longitude)))
+            completion(CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude))
         }
     }
     
