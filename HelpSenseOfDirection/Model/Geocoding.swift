@@ -10,7 +10,6 @@ import Foundation
 import CoreLocation
 import Alamofire
 import SwiftyJSON
-import Darwin
 
 class Geocoding {
     
@@ -23,7 +22,7 @@ class Geocoding {
     init() {
         if let path = Bundle.main.path(forResource: "key", ofType: "plist") {
             if let dic = NSDictionary(contentsOfFile: path) as? [String: Any] {
-                if let apiKey = dic["googleGeocodingApiKey"] as? String {
+                if let apiKey = dic["googleWebApiKey"] as? String {
                     self.apiKey = apiKey
                 }
             }

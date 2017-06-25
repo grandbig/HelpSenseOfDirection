@@ -54,6 +54,21 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         return false
     }
     
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        guard let view = UINib(nibName: "MarkerInfoContentsView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as? UIView else {
+            return nil
+        }
+        return view
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("情報ウィンドウをタップしました")
+        let direction = Direction()
+        direction.getRoutes(from: (self.mapView.myLocation?.coordinate)!, to: self.goalMarker.position) { _ in 
+            print("test")
+        }
+    }
+    
     // MARK: CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -73,7 +88,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             let geo = Geocoding.init()
             geo.geocoding(address: address) { (coordinate: CLLocationCoordinate2D) in
                 print("\(coordinate.latitude), \(coordinate.longitude)")
-                self.putMarker(title: "目的地", latitude: coordinate.latitude, longitude: coordinate.longitude)
+                self.putMarker(title: nil, latitude: coordinate.latitude, longitude: coordinate.longitude)
                 self.changeCameraPosition(coordinate: coordinate)
             }
         }) { 
@@ -135,7 +150,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter latitude: 緯度
      - parameter longitude: 経度
      */
-    private func putMarker(title: String, latitude: Double, longitude: Double) {
+    private func putMarker(title: String?, latitude: Double, longitude: Double) {
         if self.goalMarker.map != nil {
             // 既にマップ上にマーカが配置されている場合は削除
             self.goalMarker.map = nil

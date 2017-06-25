@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let path = Bundle.main.path(forResource: "key", ofType: "plist") {
             if let dic = NSDictionary(contentsOfFile: path) as? [String: Any] {
-                if let apiKey = dic["googleMapsApiKey"] as? String {
+                if let apiKey = dic["googleiOSApiKey"] as? String {
                     GMSServices.provideAPIKey(apiKey)
                     GMSPlacesClient.provideAPIKey(apiKey)
                 }

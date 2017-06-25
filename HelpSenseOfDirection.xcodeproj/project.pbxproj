@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0DEC251EFFEADA0039A3B8 /* MarkerInfoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */; };
+		2E0DEC271EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */; };
+		2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC281EFFFBE90039A3B8 /* Direction.swift */; };
 		2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351531EF57E7C004E162C /* AppDelegate.swift */; };
 		2E8351561EF57E7C004E162C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351551EF57E7C004E162C /* ViewController.swift */; };
 		2E8351591EF57E7C004E162C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351571EF57E7C004E162C /* Main.storyboard */; };
@@ -41,6 +44,9 @@
 /* Begin PBXFileReference section */
 		25286F98477C2D7C5495C851 /* Pods-Tests-HelpSenseOfDirectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-HelpSenseOfDirectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests-HelpSenseOfDirectionUITests/Pods-Tests-HelpSenseOfDirectionUITests.release.xcconfig"; sourceTree = "<group>"; };
 		283E703E04C5CBA7ADAC023D /* Pods-HelpSenseOfDirection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpSenseOfDirection.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelpSenseOfDirection/Pods-HelpSenseOfDirection.release.xcconfig"; sourceTree = "<group>"; };
+		2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfoContentsView.swift; path = Model/MarkerInfoContentsView.swift; sourceTree = "<group>"; };
+		2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MarkerInfoContentsView.xib; path = View/MarkerInfoContentsView.xib; sourceTree = "<group>"; };
+		2E0DEC281EFFFBE90039A3B8 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Direction.swift; path = Model/Direction.swift; sourceTree = "<group>"; };
 		2E8351501EF57E7C004E162C /* HelpSenseOfDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpSenseOfDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8351531EF57E7C004E162C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E8351551EF57E7C004E162C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0DEC231EFFEABA0039A3B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		2E8351471EF57E7C004E162C = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +133,7 @@
 		2E8351521EF57E7C004E162C /* HelpSenseOfDirection */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DEC231EFFEABA0039A3B8 /* View */,
 				2E8351891EF6CD4A004E162C /* Model */,
 				2E8351531EF57E7C004E162C /* AppDelegate.swift */,
 				2E8351551EF57E7C004E162C /* ViewController.swift */,
@@ -152,7 +167,9 @@
 		2E8351891EF6CD4A004E162C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */,
 				2E83518A1EF6CD77004E162C /* Geocoding.swift */,
+				2E0DEC281EFFFBE90039A3B8 /* Direction.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -312,6 +329,7 @@
 				2E83515E1EF57E7C004E162C /* LaunchScreen.storyboard in Resources */,
 				2E8351841EF58BC9004E162C /* key.plist in Resources */,
 				2E83515B1EF57E7C004E162C /* Assets.xcassets in Resources */,
+				2E0DEC271EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib in Resources */,
 				2E8351591EF57E7C004E162C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +508,8 @@
 			files = (
 				2E8351561EF57E7C004E162C /* ViewController.swift in Sources */,
 				2E83518B1EF6CD77004E162C /* Geocoding.swift in Sources */,
+				2E0DEC251EFFEADA0039A3B8 /* MarkerInfoContentsView.swift in Sources */,
+				2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */,
 				2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
