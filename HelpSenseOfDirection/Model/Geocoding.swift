@@ -23,7 +23,7 @@ class Geocoding {
     init() {
         if let path = Bundle.main.path(forResource: "key", ofType: "plist") {
             if let dic = NSDictionary(contentsOfFile: path) as? [String: Any] {
-                if let apiKey = dic["geocodingApiKey"] as? String {
+                if let apiKey = dic["googleGeocodingApiKey"] as? String {
                     self.apiKey = apiKey
                 }
             }

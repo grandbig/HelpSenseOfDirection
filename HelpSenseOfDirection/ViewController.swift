@@ -16,6 +16,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     private var locationManager: CLLocationManager?
     private var currentLocation: CLLocation?
     private var placesClient: GMSPlacesClient!
+    private var goalMarker: GMSMarker = GMSMarker()
     private var zoomLevel: Float = 15.0
     private var initView: Bool = false
     
@@ -73,6 +74,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             geo.geocoding(address: address) { (coordinate: CLLocationCoordinate2D) in
                 print("\(coordinate.latitude), \(coordinate.longitude)")
                 self.putMarker(title: "目的地", latitude: coordinate.latitude, longitude: coordinate.longitude)
+                self.changeCameraPosition(coordinate: coordinate)
             }
         }) { 
             // キャンセルした場合
@@ -134,9 +136,31 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter longitude: 経度
      */
     private func putMarker(title: String, latitude: Double, longitude: Double) {
+        if self.goalMarker.map != nil {
+            // 既にマップ上にマーカが配置されている場合は削除
+            self.goalMarker.map = nil
+        }
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let marker = GMSMarker(position: coordinate)
         marker.title = title
         marker.map = self.mapView
+        self.goalMarker = marker
+    }
+    
+    /**
+     現在地と指定した場所の両方が入るようにマップの縮尺を変更する処理
+     
+     - parameter coordinate: 場所
+     */
+    private func changeCameraPosition(coordinate: CLLocationCoordinate2D) {
+        guard let myLocation = self.mapView.myLocation?.coordinate else {
+            return
+        }
+        let bounds = GMSCoordinateBounds(coordinate: myLocation, coordinate: coordinate)
+        let margin: CGFloat = 50.0
+        guard let camera = self.mapView.camera(for: bounds, insets: UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)) else {
+            return
+        }
+        self.mapView.camera = camera
     }
 }
