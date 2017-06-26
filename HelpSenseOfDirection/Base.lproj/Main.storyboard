@@ -63,7 +63,18 @@
                             <constraint firstAttribute="trailing" secondItem="i0O-FJ-uOQ" secondAttribute="trailing" id="pNv-Ty-ApS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3nD-NS-5dS"/>
+                    <navigationItem key="navigationItem" id="3nD-NS-5dS">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Z2Q-2n-VlP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HaD-0r-nWc">
+                                <rect key="frame" x="323" y="4" width="36" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Delete"/>
+                                <connections>
+                                    <action selector="deleteAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VjZ-xF-aVo"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="i0O-FJ-uOQ" id="1hJ-UT-j7S"/>
                     </connections>
@@ -92,6 +103,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Delete" width="36" height="36"/>
         <image name="PlayIcon" width="48" height="48"/>
     </resources>
 </document>

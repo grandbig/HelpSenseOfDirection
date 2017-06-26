@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import SwiftyJSON
 
 class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
@@ -62,10 +63,13 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        print("情報ウィンドウをタップしました")
+        self.mapView.selectedMarker = nil
+        guard let myCoordinate = self.mapView.myLocation?.coordinate else {
+            return
+        }
         let direction = Direction()
-        direction.getRoutes(from: (self.mapView.myLocation?.coordinate)!, to: self.goalMarker.position) { _ in 
-            print("test")
+        direction.getRoutes(from: myCoordinate, to: self.goalMarker.position) { (json) in
+            self.drawPolyline(steps: json)
         }
     }
     
@@ -94,6 +98,10 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         }) { 
             // キャンセルした場合
         }
+    }
+    
+    @IBAction func deleteAction(_ sender: Any) {
+        self.mapClear()
     }
     
     // MARK: Other
@@ -177,5 +185,35 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             return
         }
         self.mapView.camera = camera
+    }
+    
+    /**
+     マップ上に線を描画する処理
+     
+     - parameter steps: ルート情報
+     */
+    private func drawPolyline(steps: JSON) {
+        let path = GMSMutablePath()
+        let startLocation = steps[0]["start_location"]
+        guard let startLat = startLocation["lat"].double, let startLng = startLocation["lng"].double else {
+            return
+        }
+        path.add(CLLocationCoordinate2D(latitude: startLat, longitude: startLng))
+        steps.array?.forEach { (step) in
+            guard let stepLat = step["end_location"]["lat"].double, let stepLng = step["end_location"]["lng"].double else {
+                return
+            }
+            path.add(CLLocationCoordinate2D(latitude: stepLat, longitude: stepLng))
+        }
+        let line = GMSPolyline(path: path)
+        line.strokeWidth = 3.0
+        line.map = self.mapView
+    }
+    
+    /**
+     マップ上の図形描画などを除去する処理
+     */
+    private func mapClear() {
+        self.mapView.clear()
     }
 }

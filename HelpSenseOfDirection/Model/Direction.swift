@@ -16,7 +16,7 @@ class Direction {
     /// API Key
     private var apiKey: String = String()
     /// Geocoding APIのベースURL
-    private let baseURL: String = "https://maps.googleapis.com/maps/api/directions/json?language=ja"
+    private let baseURL: String = "https://maps.googleapis.com/maps/api/directions/json?language=ja&mode=walking"
     
     /// 初期化処理
     init() {
