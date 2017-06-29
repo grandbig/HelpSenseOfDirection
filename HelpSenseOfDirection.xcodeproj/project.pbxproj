@@ -10,6 +10,8 @@
 		2E0DEC251EFFEADA0039A3B8 /* MarkerInfoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */; };
 		2E0DEC271EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */; };
 		2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC281EFFFBE90039A3B8 /* Direction.swift */; };
+		2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */; };
+		2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */; };
 		2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351531EF57E7C004E162C /* AppDelegate.swift */; };
 		2E8351561EF57E7C004E162C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351551EF57E7C004E162C /* ViewController.swift */; };
 		2E8351591EF57E7C004E162C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351571EF57E7C004E162C /* Main.storyboard */; };
@@ -47,6 +49,8 @@
 		2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfoContentsView.swift; path = Model/MarkerInfoContentsView.swift; sourceTree = "<group>"; };
 		2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MarkerInfoContentsView.xib; path = View/MarkerInfoContentsView.xib; sourceTree = "<group>"; };
 		2E0DEC281EFFFBE90039A3B8 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Direction.swift; path = Model/Direction.swift; sourceTree = "<group>"; };
+		2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomGMSMarker.swift; path = Model/CustomGMSMarker.swift; sourceTree = "<group>"; };
+		2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerType.swift; path = Enum/MarkerType.swift; sourceTree = "<group>"; };
 		2E8351501EF57E7C004E162C /* HelpSenseOfDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpSenseOfDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8351531EF57E7C004E162C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E8351551EF57E7C004E162C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		2E0DEC2C1F051E810039A3B8 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */,
+			);
+			name = Enum;
+			sourceTree = "<group>";
+		};
 		2E8351471EF57E7C004E162C = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +145,7 @@
 		2E8351521EF57E7C004E162C /* HelpSenseOfDirection */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DEC2C1F051E810039A3B8 /* Enum */,
 				2E0DEC231EFFEABA0039A3B8 /* View */,
 				2E8351891EF6CD4A004E162C /* Model */,
 				2E8351531EF57E7C004E162C /* AppDelegate.swift */,
@@ -170,6 +183,7 @@
 				2E0DEC241EFFEADA0039A3B8 /* MarkerInfoContentsView.swift */,
 				2E83518A1EF6CD77004E162C /* Geocoding.swift */,
 				2E0DEC281EFFFBE90039A3B8 /* Direction.swift */,
+				2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -507,9 +521,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E8351561EF57E7C004E162C /* ViewController.swift in Sources */,
+				2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */,
 				2E83518B1EF6CD77004E162C /* Geocoding.swift in Sources */,
 				2E0DEC251EFFEADA0039A3B8 /* MarkerInfoContentsView.swift in Sources */,
 				2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */,
+				2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */,
 				2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
