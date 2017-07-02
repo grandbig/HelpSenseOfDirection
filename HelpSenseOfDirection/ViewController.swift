@@ -59,6 +59,9 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         print("ロングタップ: \(coordinate.latitude), \(coordinate.longitude)")
         self.showConfirm(title: "確認", message: "ここに目印マーカを配置しますか？", okCompletion: {
             // OKタップ時
+            self.putMarker(title: nil, coordinate: coordinate, iconName: "PointIcon", type: MarkerType.mark, completion: { _ in
+                self.performSegue(withIdentifier: "showPopupSegue", sender: nil)
+            })
         }) { 
             // キャンセルタップ時は何もしない
         }
@@ -120,6 +123,22 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         }) { 
             // キャンセルした場合
         }
+    }
+    
+    @IBAction func showList(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        storyboard.instantiateViewController(withIdentifier: "SlideMenuViewController")
+    }
+    
+    // MARK: Storyboard Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let backButton = UIBarButtonItem.init()
+        backButton.title = "戻る"
+        backButton.tintColor = UIColor.white
+        self.navigationItem.backBarButtonItem = backButton
+    }
+    
+    @IBAction func unwindToHome(segue: UIStoryboardSegue) {
     }
     
     // MARK: Other

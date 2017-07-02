@@ -12,6 +12,11 @@
 		2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC281EFFFBE90039A3B8 /* Direction.swift */; };
 		2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */; };
 		2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */; };
+		2E0DEC331F073F3D0039A3B8 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */; };
+		2E0DEC371F076F150039A3B8 /* Mark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC361F076F150039A3B8 /* Mark.swift */; };
+		2E0DEC391F076FE30039A3B8 /* MarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC381F076FE30039A3B8 /* MarkManager.swift */; };
+		2E0DEC3B1F0777A20039A3B8 /* UIPlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC3A1F0777A20039A3B8 /* UIPlaceHolderTextView.swift */; };
+		2E0DEC431F08F0A80039A3B8 /* CreateMarkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */; };
 		2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351531EF57E7C004E162C /* AppDelegate.swift */; };
 		2E8351561EF57E7C004E162C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351551EF57E7C004E162C /* ViewController.swift */; };
 		2E8351591EF57E7C004E162C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351571EF57E7C004E162C /* Main.storyboard */; };
@@ -51,6 +56,11 @@
 		2E0DEC281EFFFBE90039A3B8 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Direction.swift; path = Model/Direction.swift; sourceTree = "<group>"; };
 		2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomGMSMarker.swift; path = Model/CustomGMSMarker.swift; sourceTree = "<group>"; };
 		2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerType.swift; path = Enum/MarkerType.swift; sourceTree = "<group>"; };
+		2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
+		2E0DEC361F076F150039A3B8 /* Mark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mark.swift; path = Model/Mark.swift; sourceTree = "<group>"; };
+		2E0DEC381F076FE30039A3B8 /* MarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkManager.swift; path = Model/MarkManager.swift; sourceTree = "<group>"; };
+		2E0DEC3A1F0777A20039A3B8 /* UIPlaceHolderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIPlaceHolderTextView.swift; path = View/UIPlaceHolderTextView.swift; sourceTree = "<group>"; };
+		2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMarkerViewController.swift; sourceTree = "<group>"; };
 		2E8351501EF57E7C004E162C /* HelpSenseOfDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpSenseOfDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8351531EF57E7C004E162C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E8351551EF57E7C004E162C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				2E0DEC261EFFEAFE0039A3B8 /* MarkerInfoContentsView.xib */,
+				2E0DEC3A1F0777A20039A3B8 /* UIPlaceHolderTextView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -118,6 +129,16 @@
 				2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */,
 			);
 			name = Enum;
+			sourceTree = "<group>";
+		};
+		2E0DEC2F1F073BC70039A3B8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2E8351551EF57E7C004E162C /* ViewController.swift */,
+				2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */,
+				2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 		2E8351471EF57E7C004E162C = {
@@ -145,11 +166,11 @@
 		2E8351521EF57E7C004E162C /* HelpSenseOfDirection */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DEC2F1F073BC70039A3B8 /* ViewController */,
 				2E0DEC2C1F051E810039A3B8 /* Enum */,
 				2E0DEC231EFFEABA0039A3B8 /* View */,
 				2E8351891EF6CD4A004E162C /* Model */,
 				2E8351531EF57E7C004E162C /* AppDelegate.swift */,
-				2E8351551EF57E7C004E162C /* ViewController.swift */,
 				2E8351571EF57E7C004E162C /* Main.storyboard */,
 				2E83515A1EF57E7C004E162C /* Assets.xcassets */,
 				2E83515C1EF57E7C004E162C /* LaunchScreen.storyboard */,
@@ -184,6 +205,8 @@
 				2E83518A1EF6CD77004E162C /* Geocoding.swift */,
 				2E0DEC281EFFFBE90039A3B8 /* Direction.swift */,
 				2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */,
+				2E0DEC361F076F150039A3B8 /* Mark.swift */,
+				2E0DEC381F076FE30039A3B8 /* MarkManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -524,7 +547,12 @@
 				2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */,
 				2E83518B1EF6CD77004E162C /* Geocoding.swift in Sources */,
 				2E0DEC251EFFEADA0039A3B8 /* MarkerInfoContentsView.swift in Sources */,
+				2E0DEC371F076F150039A3B8 /* Mark.swift in Sources */,
+				2E0DEC431F08F0A80039A3B8 /* CreateMarkerViewController.swift in Sources */,
+				2E0DEC391F076FE30039A3B8 /* MarkManager.swift in Sources */,
 				2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */,
+				2E0DEC3B1F0777A20039A3B8 /* UIPlaceHolderTextView.swift in Sources */,
+				2E0DEC331F073F3D0039A3B8 /* SlideMenuViewController.swift in Sources */,
 				2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */,
 				2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */,
 			);
@@ -683,10 +711,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6J4XG67E62;
 				INFOPLIST_FILE = HelpSenseOfDirection/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kato.HelpSenseOfDirection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -697,10 +727,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6J4XG67E62;
 				INFOPLIST_FILE = HelpSenseOfDirection/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kato.HelpSenseOfDirection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
