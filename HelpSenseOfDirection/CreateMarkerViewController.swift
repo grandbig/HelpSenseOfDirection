@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CreateMarkerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateMarkerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeTitleTextField: UITextField!
@@ -21,6 +21,8 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
         
         self.placeTextArea.placeHolder = "詳細説明を入力"
         self.placeTextArea.placeHolderColor = UIColor(red: 0.75, green: 0.75, blue: 0.77, alpha: 1.0)
+        self.placeTitleTextField.delegate = self
+        self.createToolBar()
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,6 +38,14 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
             }
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        
+        return true
     }
     
     // MARK: Button Action
@@ -74,5 +84,22 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
             controller.sourceType = UIImagePickerControllerSourceType.camera
             present(controller, animated: true, completion: nil)
         }
+    }
+    
+    /// キーボード用ツールバーの生成処理
+    func createToolBar() {
+        let kbToolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 40))
+        kbToolBar.barStyle = UIBarStyle.default
+        kbToolBar.sizeToFit()
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneButtonTapped))
+        kbToolBar.items = [spacer, commitButton]
+        
+        self.placeTextArea.inputAccessoryView = kbToolBar
+    }
+    
+    /// ツールバーのDONEボタンタップ時の処理
+    func doneButtonTapped() {
+        self.view.endEditing(true)
     }
 }
