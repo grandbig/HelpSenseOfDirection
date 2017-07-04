@@ -8,12 +8,15 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class CreateMarkerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeTitleTextField: UITextField!
     @IBOutlet weak var placeTextArea: UIPlaceHolderTextView!
+    private var markManager = MarkManager.sharedInstance
+    var markCoordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,9 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
         self.placeTextArea.placeHolderColor = UIColor(red: 0.75, green: 0.75, blue: 0.77, alpha: 1.0)
         self.placeTitleTextField.delegate = self
         self.createToolBar()
+        
+        // RealmSwift関連の初期化処理
+        self.markManager = MarkManager.init()
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,9 +56,32 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
     
     // MARK: Button Action
     @IBAction func okAction(_ sender: Any) {
-        var imageData: NSData?
-        if let image = self.placeImageView.image {
-            imageData = NSData.init(data: UIImageJPEGRepresentation(image, 1.0)!)
+        self.showConfirm(title: "確認", message: "目印マーカの情報を保存しますか？", okCompletion: {
+            // OKタップ時
+            if let markCoordinate = self.markCoordinate {
+                // 位置情報がある場合
+                var imageData: NSData?
+                let title: String = self.placeTitleTextField.text ?? ""
+                let latitude = markCoordinate.latitude
+                let longitude = markCoordinate.longitude
+                let markId = (self.markManager.selectAll()?.last != nil) ? ((self.markManager.selectAll()?.last?.id)! + 1) : 0
+                if let image = self.placeImageView.image {
+                    imageData = NSData.init(data: UIImageJPEGRepresentation(image, 1.0)!)
+                }
+                // データの保存
+                self.markManager.createMark(title: title, detail: self.placeTextArea.text, image: imageData, latitude: latitude, longitude: longitude)
+                // 遷移元ViewControllerの取得
+                guard let nav = self.presentingViewController as? UINavigationController, let vc = nav.viewControllers[nav.viewControllers.count - 1] as? ViewController else {
+                    return
+                }
+                // マップに目印マーカを描画
+                vc.putPointMarker(title: nil, coordinate: markCoordinate, id: markId)
+                // 画面遷移
+                self.dismiss(animated: true, completion: {
+                })
+            }
+        }) {
+            // キャンセルタップ時
         }
     }
     
@@ -68,11 +97,9 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
      */
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        for touch: UITouch in touches {
-            if touch.view?.tag == 1 {
-                // UIImageViewをタップした場合
-                self.pickImageFromCamera()
-            }
+        for touch: UITouch in touches where touch.view?.tag == 1 {
+            // UIImageViewをタップした場合
+            self.pickImageFromCamera()
         }
     }
     
@@ -101,5 +128,26 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
     /// ツールバーのDONEボタンタップ時の処理
     func doneButtonTapped() {
         self.view.endEditing(true)
+    }
+    
+    /**
+     確認モーダルの表示処理
+     
+     - parameter title: アラートのタイトル
+     - parameter message: アラートのメッセージ
+     - parameter okCompletion: OKタップ時のCallback
+     - parameter cancelCompletion: Cancelタップ時のCallback
+     */
+    private func showConfirm(title: String, message: String, okCompletion: @escaping (() -> Void), cancelCompletion: @escaping (() -> Void)) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
+            okCompletion()
+        }
+        let cancelAction = UIAlertAction.init(title: "キャンセル", style: UIAlertActionStyle.cancel) { _ in
+            cancelCompletion()
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
 }

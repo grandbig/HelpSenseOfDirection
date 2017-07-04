@@ -11,6 +11,8 @@ import UIKit
 import GoogleMaps
 
 class CustomGMSMarker: GMSMarker {
+    /// マーカID
+    public var id: Int?
     /// マーカタイプ
     public var type: MarkerType?
     
@@ -26,6 +28,15 @@ class CustomGMSMarker: GMSMarker {
      */
     func setMarkerPosition(_ position: CLLocationCoordinate2D) {
         self.position = position
+    }
+    
+    /**
+     マーカのIDを設定する処理
+     
+     - parameter id: マーカのID
+     */
+    func setMarkerID(_ id: Int) {
+        self.id = id
     }
     
     /**

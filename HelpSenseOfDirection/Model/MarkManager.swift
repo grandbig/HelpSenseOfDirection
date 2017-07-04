@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 
 class MarkManager {
+    
+    /// シングルトン
+    static let sharedInstance = MarkManager()
+    
     /// イニシャライザ
     init() {
         
@@ -57,6 +61,22 @@ class MarkManager {
         do {
             let marks = try Realm().objects(Mark.self).sorted(byKeyPath: "id")
             return marks
+        } catch _ as NSError {
+            return nil
+        }
+    }
+    
+    /**
+     指定したIDに紐づくマークを取得する処理
+     
+     - parameter id: ID
+     - returns: マーク
+     */
+    func selectById(_ id: Int) -> Mark? {
+        do {
+            let realm = try Realm()
+            let marks = realm.objects(Mark.self).filter("id == '\(id)'")
+            return marks.first
         } catch _ as NSError {
             return nil
         }

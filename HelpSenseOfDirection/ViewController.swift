@@ -21,6 +21,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     private var routePath: GMSPolyline = GMSPolyline()
     private var zoomLevel: Float = 15.0
     private var initView: Bool = false
+    private var markManager = MarkManager.sharedInstance
+    internal var markCoordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +58,16 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     }
     
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-        print("ロングタップ: \(coordinate.latitude), \(coordinate.longitude)")
-        self.showConfirm(title: "確認", message: "ここに目印マーカを配置しますか？", okCompletion: {
-            // OKタップ時
-            self.putMarker(title: nil, coordinate: coordinate, iconName: "PointIcon", type: MarkerType.mark, completion: { _ in
+        if self.goalMarker.map != nil {
+            // 目的地マーカを設定した場合のみ途中ポイントマーカを設定可能
+            self.showConfirm(title: "確認", message: "ここに目印マーカを配置しますか？", okCompletion: {
+                // OKタップ時
+                self.markCoordinate = coordinate
+                // 画面遷移
                 self.performSegue(withIdentifier: "showPopupSegue", sender: nil)
-            })
-        }) { 
-            // キャンセルタップ時は何もしない
+            }) {
+                // キャンセルタップ時は何もしない
+            }
         }
     }
     
@@ -71,11 +75,18 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         guard let cMarker = marker as? CustomGMSMarker else {
             return nil
         }
-        if cMarker.type == MarkerType.goal {
-            // 目的地マーカの場合
-            guard let view = UINib(nibName: "MarkerInfoContentsView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as? UIView else {
+        if cMarker.type == MarkerType.point, let cMarkerId = cMarker.id {
+            // 目印マーカの場合
+            // TODO: 正しくマーカの値が取得できない
+            let mark = self.markManager.selectById(cMarkerId)
+            var image = UIImage(named: "NoImageIcon")
+            if let imageData = mark?.image as Data? {
+                image = UIImage(data: imageData)
+            }
+            guard let view = UINib(nibName: "MarkerInfoContentsView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as? MarkerInfoContentsView else {
                 return nil
             }
+            view.setData(title: mark?.title, detail: mark?.detail, image: image)
             return view
         }
         
@@ -84,13 +95,6 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         self.mapView.selectedMarker = nil
-        guard let myCurrentLocation = self.currentLocation else {
-            return
-        }
-        let direction = Direction()
-        direction.getRoutes(from: myCurrentLocation, to: self.goalMarker.position) { (json) in
-            self.drawPolyline(steps: json)
-        }
     }
     
     // MARK: CLLocationManagerDelegate
@@ -116,9 +120,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 guard let myCurrentLocation = self.currentLocation else {
                     return
                 }
-                self.putMarker(title: nil, coordinate: myCurrentLocation, iconName: "StartIcon", type: MarkerType.start, completion: { _ in })
-                self.putGoalMarker(title: nil, coordinate: coordinate)
+                self.putMarker(title: "スタート地点", coordinate: myCurrentLocation, iconName: "StartIcon", id: nil, type: MarkerType.start, completion: { _ in })
+                self.putGoalMarker(title: "ゴール地点", coordinate: coordinate)
                 self.changeCameraPosition(coordinate: coordinate)
+                // スタート地点からゴール地点までの道のりを描画
+                let direction = Direction()
+                direction.getRoutes(from: myCurrentLocation, to: self.goalMarker.position) { (json) in
+                    self.drawPolyline(steps: json)
+                }
             }
         }) { 
             // キャンセルした場合
@@ -136,6 +145,12 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         backButton.title = "戻る"
         backButton.tintColor = UIColor.white
         self.navigationItem.backBarButtonItem = backButton
+        
+        if segue.identifier == "showPopupSegue" {
+            if let createMarkerViewController = segue.destination as? CreateMarkerViewController {
+                createMarkerViewController.markCoordinate = self.markCoordinate
+            }
+        }
     }
     
     @IBAction func unwindToHome(segue: UIStoryboardSegue) {
@@ -215,10 +230,11 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter title: マーカのタイトル
      - parameter coordinate: 位置
      - parameter iconName: アイコン名
+     - parameter id: マーカのID
      - parameter type: マーカのタイプ
      - parameter completion: Callback
      */
-    private func putMarker(title: String?, coordinate: CLLocationCoordinate2D, iconName: String?, type: MarkerType, completion: @escaping ((CustomGMSMarker) -> Void)) {
+    private func putMarker(title: String?, coordinate: CLLocationCoordinate2D, iconName: String?, id: Int?, type: MarkerType, completion: @escaping ((CustomGMSMarker) -> Void)) {
         // マーカの生成
         let marker = CustomGMSMarker()
         marker.title = title
@@ -226,18 +242,39 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         if iconName != nil {
             marker.icon = UIImage.init(named: iconName!)
         }
+        if id != nil {
+            marker.id = id
+        }
         marker.type = type
         marker.map = self.mapView
         completion(marker)
     }
     
+    /**
+     マップに目的地マーカを設置する処理
+     
+     - parameter title: マーカのタイトル
+     - parameter coordinate: 位置
+     */
     private func putGoalMarker(title: String?, coordinate: CLLocationCoordinate2D) {
         if self.goalMarker.map != nil {
             // 既にマップ上にマーカが配置されている場合は削除
             self.goalMarker.map = nil
         }
-        self.putMarker(title: title, coordinate: coordinate, iconName: "GoalIcon", type: MarkerType.goal) { marker in
+        self.putMarker(title: title, coordinate: coordinate, iconName: "GoalIcon", id: nil, type: MarkerType.goal) { marker in
             self.goalMarker = marker
+        }
+    }
+    
+    /**
+     マップに目印マーカを設置する処理
+     
+     - parameter title: マーカのタイトル
+     - parameter coordinate: 位置
+     - parameter id: マーカのID
+     */
+    internal func putPointMarker(title: String?, coordinate: CLLocationCoordinate2D, id: Int) {
+        self.putMarker(title: title, coordinate: coordinate, iconName: "PointIcon", id: id, type: MarkerType.point) { _ in
         }
     }
     
