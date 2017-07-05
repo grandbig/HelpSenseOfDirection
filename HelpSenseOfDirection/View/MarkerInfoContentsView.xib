@@ -11,13 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MarkerInfoContentsView" customModule="HelpSenseOfDirection" customModuleProvider="target">
             <connections>
-                <outlet property="detail" destination="Y13-Rm-fFh" id="LgY-XM-1H7"/>
-                <outlet property="imageView" destination="02p-dm-EmO" id="yKu-m6-o2w"/>
-                <outlet property="title" destination="1RM-qP-kW6" id="ezI-ND-490"/>
+                <outlet property="detail" destination="Y13-Rm-fFh" id="Ii6-oC-pgC"/>
+                <outlet property="imageView" destination="02p-dm-EmO" id="Iec-CS-gMN"/>
+                <outlet property="title" destination="1RM-qP-kW6" id="hgn-hn-o9X"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerInfoContentsView" customModule="HelpSenseOfDirection" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="250" height="265"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -27,7 +27,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Y13-Rm-fFh">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y13-Rm-fFh">
                     <rect key="frame" x="8" y="37" width="234" height="100"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>

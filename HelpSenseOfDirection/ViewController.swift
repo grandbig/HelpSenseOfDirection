@@ -77,15 +77,12 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         }
         if cMarker.type == MarkerType.point, let cMarkerId = cMarker.id {
             // 目印マーカの場合
-            // TODO: 正しくマーカの値が取得できない
             let mark = self.markManager.selectById(cMarkerId)
             var image = UIImage(named: "NoImageIcon")
             if let imageData = mark?.image as Data? {
                 image = UIImage(data: imageData)
             }
-            guard let view = UINib(nibName: "MarkerInfoContentsView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as? MarkerInfoContentsView else {
-                return nil
-            }
+            let view = MarkerInfoContentsView(frame: CGRect(x: 0, y: 0, width: 250, height: 265))
             view.setData(title: mark?.title, detail: mark?.detail, image: image)
             return view
         }

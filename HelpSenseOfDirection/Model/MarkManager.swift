@@ -75,8 +75,8 @@ class MarkManager {
     func selectById(_ id: Int) -> Mark? {
         do {
             let realm = try Realm()
-            let marks = realm.objects(Mark.self).filter("id == '\(id)'")
-            return marks.first
+            let mark = realm.object(ofType: Mark.self, forPrimaryKey: id)
+            return mark
         } catch _ as NSError {
             return nil
         }

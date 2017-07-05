@@ -15,7 +15,6 @@ class MarkerInfoContentsView: UIView {
     @IBOutlet weak var detail: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.xibViewSet()
