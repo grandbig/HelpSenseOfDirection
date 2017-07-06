@@ -81,4 +81,36 @@ class MarkManager {
             return nil
         }
     }
+    
+    /**
+     指定したIDのマーカを削除する処理
+     
+     - parameter id: ID
+     */
+    func delete(_ id: Int) {
+        if let mark = selectById(id) {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    realm.delete(mark)
+                }
+            } catch let error as NSError {
+                print("Error: code - \(error.code), description - \(error.description)")
+            }
+        }
+    }
+    
+    /**
+     保存した全てのマークを削除する処理
+     */
+    func deleteAll() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch let error as NSError {
+            print("Error: code - \(error.code), description - \(error.description)")
+        }
+    }
 }

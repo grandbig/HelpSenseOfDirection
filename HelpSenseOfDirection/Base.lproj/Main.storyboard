@@ -76,6 +76,8 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="mapView" destination="i0O-FJ-uOQ" id="1hJ-UT-j7S"/>
                         <segue destination="cAT-XA-rUG" kind="presentation" identifier="showPopupSegue" id="4Td-ID-Hge"/>
@@ -190,6 +192,8 @@
                             <constraint firstItem="BCB-Q0-VeM" firstAttribute="top" secondItem="NjZ-hw-lN0" secondAttribute="bottom" constant="16" id="z0f-07-o2X"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="placeImageView" destination="ec9-kB-kfU" id="P03-C2-Xx3"/>
                         <outlet property="placeTextArea" destination="nNN-iD-kbc" id="rLC-FG-0aK"/>
@@ -201,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="1093.5999999999999" y="157.87106446776613"/>
         </scene>
-        <!--View Controller-->
+        <!--Slide Menu View Controller-->
         <scene sceneID="hsU-ZE-6KY">
             <objects>
-                <viewController id="NTO-L7-bcg" sceneMemberID="viewController">
+                <viewController id="NTO-L7-bcg" customClass="SlideMenuViewController" customModule="HelpSenseOfDirection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nax-gt-7k4"/>
                         <viewControllerLayoutGuide type="bottom" id="DFi-m8-bwE"/>
@@ -213,12 +217,12 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Na-sC-uxY">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7Na-sC-uxY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="NBy-88-VZ2">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MarkCell" id="NBy-88-VZ2">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NBy-88-VZ2" id="zh3-Or-S9z">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -244,9 +248,17 @@
                                 <state key="normal" title="全削除">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="deleteAll:" destination="NTO-L7-bcg" eventType="touchUpInside" id="qQ4-3F-TNB"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="tableView" destination="7Na-sC-uxY" id="11V-D0-ySb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPC-Ro-Gp3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -257,6 +269,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FNS-S7-6wg" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" translucent="NO" id="7hy-Bf-836">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -44,6 +44,13 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         self.locationManager?.delegate = self
         
         self.placesClient = GMSPlacesClient.shared()
+        
+        if let marks = self.markManager.selectAll() {
+            if marks.count > 0 {
+                // 既にマーカを保存している場合は全て削除する
+                self.markManager.deleteAll()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
