@@ -182,7 +182,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 okCompletion(enteredText)
                 return
             }
-            self.showAlert(title: "Alert", message: "Please input the text.", completion: {
+            self.showAlert(title: "アラート", message: "入力してください", completion: {
                 cancelCompletion()
             })
         }

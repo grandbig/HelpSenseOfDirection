@@ -77,18 +77,42 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Button Action
     @IBAction func deleteAll(_ sender: Any) {
-        self.showConfirm(title: "確認", message: "全ての目印を削除しますか？", okCompletion: {
-            self.markManager.deleteAll()
-            if let markers = self.markersOnMap {
-                for marker in markers {
-                    marker.map = nil
+        if let count = self.marks?.count {
+            if count > 0 {
+                self.showConfirm(title: "確認", message: "全ての目印を削除しますか？", okCompletion: {
+                    self.markManager.deleteAll()
+                    if let markers = self.markersOnMap {
+                        for marker in markers {
+                            marker.map = nil
+                        }
+                    }
+                }) {
                 }
+            } else {
+                self.showAlert(title: "アラート", message: "保存された目印はありません", completion: {
+                })
             }
-        }) {
         }
     }
     
     // MARK: Other
+    /**
+     警告モーダルの表示処理
+     
+     - parameter title: アラートのタイトル
+     - parameter message: アラートのメッセージ
+     - parameter completion: OKタップ時のCallback
+     */
+    private func showAlert(title: String, message: String, completion: @escaping (() -> Void)) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
+            completion()
+        }
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     /**
      確認モーダルの表示処理
      
