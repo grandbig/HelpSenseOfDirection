@@ -12,11 +12,12 @@
 		2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */; };
 		2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */; };
 		2E0DEC331F073F3D0039A3B8 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */; };
-		2E0DEC371F076F150039A3B8 /* Mark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC361F076F150039A3B8 /* Mark.swift */; };
-		2E0DEC391F076FE30039A3B8 /* MarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC381F076FE30039A3B8 /* MarkManager.swift */; };
+		2E0DEC371F076F150039A3B8 /* RealmMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC361F076F150039A3B8 /* RealmMark.swift */; };
+		2E0DEC391F076FE30039A3B8 /* RealmMarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC381F076FE30039A3B8 /* RealmMarkManager.swift */; };
 		2E0DEC3B1F0777A20039A3B8 /* UIPlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC3A1F0777A20039A3B8 /* UIPlaceHolderTextView.swift */; };
 		2E0DEC431F08F0A80039A3B8 /* CreateMarkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */; };
 		2E0DEC481F0BDFB20039A3B8 /* MarkerInfoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC471F0BDFB20039A3B8 /* MarkerInfoContentsView.swift */; };
+		2E0DEC4A1F112DBC0039A3B8 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC491F112DBC0039A3B8 /* Marker.swift */; };
 		2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351531EF57E7C004E162C /* AppDelegate.swift */; };
 		2E8351561EF57E7C004E162C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351551EF57E7C004E162C /* ViewController.swift */; };
 		2E8351591EF57E7C004E162C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351571EF57E7C004E162C /* Main.storyboard */; };
@@ -56,11 +57,12 @@
 		2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomGMSMarker.swift; path = Model/CustomGMSMarker.swift; sourceTree = "<group>"; };
 		2E0DEC2D1F051EA30039A3B8 /* MarkerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerType.swift; path = Enum/MarkerType.swift; sourceTree = "<group>"; };
 		2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
-		2E0DEC361F076F150039A3B8 /* Mark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mark.swift; path = Model/Mark.swift; sourceTree = "<group>"; };
-		2E0DEC381F076FE30039A3B8 /* MarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkManager.swift; path = Model/MarkManager.swift; sourceTree = "<group>"; };
+		2E0DEC361F076F150039A3B8 /* RealmMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmMark.swift; path = Model/RealmMark.swift; sourceTree = "<group>"; };
+		2E0DEC381F076FE30039A3B8 /* RealmMarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmMarkManager.swift; path = Model/RealmMarkManager.swift; sourceTree = "<group>"; };
 		2E0DEC3A1F0777A20039A3B8 /* UIPlaceHolderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIPlaceHolderTextView.swift; path = View/UIPlaceHolderTextView.swift; sourceTree = "<group>"; };
 		2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMarkerViewController.swift; sourceTree = "<group>"; };
 		2E0DEC471F0BDFB20039A3B8 /* MarkerInfoContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfoContentsView.swift; path = View/MarkerInfoContentsView.swift; sourceTree = "<group>"; };
+		2E0DEC491F112DBC0039A3B8 /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Marker.swift; path = Model/Marker.swift; sourceTree = "<group>"; };
 		2E8351501EF57E7C004E162C /* HelpSenseOfDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpSenseOfDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8351531EF57E7C004E162C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E8351551EF57E7C004E162C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -135,9 +137,9 @@
 		2E0DEC2F1F073BC70039A3B8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2E8351551EF57E7C004E162C /* ViewController.swift */,
-				2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */,
 				2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */,
+				2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */,
+				2E8351551EF57E7C004E162C /* ViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -202,11 +204,12 @@
 		2E8351891EF6CD4A004E162C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2E83518A1EF6CD77004E162C /* Geocoding.swift */,
-				2E0DEC281EFFFBE90039A3B8 /* Direction.swift */,
 				2E0DEC2A1F051E430039A3B8 /* CustomGMSMarker.swift */,
-				2E0DEC361F076F150039A3B8 /* Mark.swift */,
-				2E0DEC381F076FE30039A3B8 /* MarkManager.swift */,
+				2E0DEC281EFFFBE90039A3B8 /* Direction.swift */,
+				2E83518A1EF6CD77004E162C /* Geocoding.swift */,
+				2E0DEC361F076F150039A3B8 /* RealmMark.swift */,
+				2E0DEC381F076FE30039A3B8 /* RealmMarkManager.swift */,
+				2E0DEC491F112DBC0039A3B8 /* Marker.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -547,11 +550,12 @@
 				2E0DEC2E1F051EA30039A3B8 /* MarkerType.swift in Sources */,
 				2E0DEC481F0BDFB20039A3B8 /* MarkerInfoContentsView.swift in Sources */,
 				2E83518B1EF6CD77004E162C /* Geocoding.swift in Sources */,
-				2E0DEC371F076F150039A3B8 /* Mark.swift in Sources */,
+				2E0DEC371F076F150039A3B8 /* RealmMark.swift in Sources */,
 				2E0DEC431F08F0A80039A3B8 /* CreateMarkerViewController.swift in Sources */,
-				2E0DEC391F076FE30039A3B8 /* MarkManager.swift in Sources */,
+				2E0DEC391F076FE30039A3B8 /* RealmMarkManager.swift in Sources */,
 				2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */,
 				2E0DEC3B1F0777A20039A3B8 /* UIPlaceHolderTextView.swift in Sources */,
+				2E0DEC4A1F112DBC0039A3B8 /* Marker.swift in Sources */,
 				2E0DEC331F073F3D0039A3B8 /* SlideMenuViewController.swift in Sources */,
 				2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */,
 				2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */,

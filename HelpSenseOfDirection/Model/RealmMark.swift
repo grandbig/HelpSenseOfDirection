@@ -12,7 +12,7 @@ import RealmSwift
 /**
  目印
  */
-class Mark: Object {
+class RealmMark: Object {
     dynamic var id: Int = 0
     dynamic var title: String = ""
     dynamic var detail: String = ""

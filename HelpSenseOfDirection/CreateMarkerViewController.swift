@@ -15,7 +15,7 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeTitleTextField: UITextField!
     @IBOutlet weak var placeTextArea: UIPlaceHolderTextView!
-    private var markManager = MarkManager.sharedInstance
+    private var markManager = RealmMarkManager.sharedInstance
     var markCoordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
         self.createToolBar()
         
         // RealmSwift関連の初期化処理
-        self.markManager = MarkManager.init()
+        self.markManager = RealmMarkManager.init()
     }
     
     override func didReceiveMemoryWarning() {

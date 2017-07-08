@@ -9,10 +9,10 @@
 import Foundation
 import RealmSwift
 
-class MarkManager {
+class RealmMarkManager {
     
     /// シングルトン
-    static let sharedInstance = MarkManager()
+    static let sharedInstance = RealmMarkManager()
     
     /// イニシャライザ
     init() {
@@ -31,7 +31,7 @@ class MarkManager {
     func createMark(title: String, detail: String?, image: NSData?, latitude: Double, longitude: Double) {
         do {
             let realm = try Realm()
-            let mark = Mark()
+            let mark = RealmMark()
             mark.id = (selectAll()?.last != nil) ? ((selectAll()?.last?.id)! + 1) : 0
             mark.title = title
             if let markDetail = detail {
@@ -45,7 +45,7 @@ class MarkManager {
             
             // Realmへのオブジェクトの書き込み
             try realm.write {
-                realm.create(Mark.self, value: mark, update: false)
+                realm.create(RealmMark.self, value: mark, update: false)
             }
         } catch let error as NSError {
             print("Error: code - \(error.code), description - \(error.description)")
@@ -57,9 +57,9 @@ class MarkManager {
      
      - returns: 全てのマーク
      */
-    func selectAll() -> Results<Mark>? {
+    func selectAll() -> Results<RealmMark>? {
         do {
-            let marks = try Realm().objects(Mark.self).sorted(byKeyPath: "id")
+            let marks = try Realm().objects(RealmMark.self).sorted(byKeyPath: "id")
             return marks
         } catch _ as NSError {
             return nil
@@ -72,10 +72,10 @@ class MarkManager {
      - parameter id: ID
      - returns: マーク
      */
-    func selectById(_ id: Int) -> Mark? {
+    func selectById(_ id: Int) -> RealmMark? {
         do {
             let realm = try Realm()
-            let mark = realm.object(ofType: Mark.self, forPrimaryKey: id)
+            let mark = realm.object(ofType: RealmMark.self, forPrimaryKey: id)
             return mark
         } catch _ as NSError {
             return nil

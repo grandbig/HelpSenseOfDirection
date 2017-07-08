@@ -21,8 +21,9 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     private var routePath: GMSPolyline = GMSPolyline()
     private var zoomLevel: Float = 15.0
     private var initView: Bool = false
-    private var markManager = MarkManager.sharedInstance
+    private var markManager = RealmMarkManager.sharedInstance
     internal var markCoordinate: CLLocationCoordinate2D?
+    internal var markersOnMap: [CustomGMSMarker]? = [CustomGMSMarker]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +125,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 guard let myCurrentLocation = self.currentLocation else {
                     return
                 }
-                self.putMarker(title: "スタート地点", coordinate: myCurrentLocation, iconName: "StartIcon", id: nil, type: MarkerType.start, completion: { _ in })
+                let marker = Marker(id: nil, type: MarkerType.start)
+                self.putMarker(title: "スタート地点", coordinate: myCurrentLocation, iconName: "StartIcon", marker: marker, completion: { _ in })
                 self.putGoalMarker(title: "ゴール地点", coordinate: coordinate)
                 self.changeCameraPosition(coordinate: coordinate)
                 // スタート地点からゴール地点までの道のりを描画
@@ -153,6 +155,10 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         if segue.identifier == "showPopupSegue" {
             if let createMarkerViewController = segue.destination as? CreateMarkerViewController {
                 createMarkerViewController.markCoordinate = self.markCoordinate
+            }
+        } else if segue.identifier == "slideMenuSegue" {
+            if let slideMenuViewController = segue.destination as? SlideMenuViewController {
+                slideMenuViewController.markersOnMap = self.markersOnMap
             }
         }
     }
@@ -234,24 +240,26 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter title: マーカのタイトル
      - parameter coordinate: 位置
      - parameter iconName: アイコン名
-     - parameter id: マーカのID
-     - parameter type: マーカのタイプ
+     - parameter marker: マーカオブジェクト
      - parameter completion: Callback
      */
-    private func putMarker(title: String?, coordinate: CLLocationCoordinate2D, iconName: String?, id: Int?, type: MarkerType, completion: @escaping ((CustomGMSMarker) -> Void)) {
+    private func putMarker(title: String?, coordinate: CLLocationCoordinate2D, iconName: String?, marker: Marker?, completion: @escaping ((CustomGMSMarker) -> Void)) {
         // マーカの生成
-        let marker = CustomGMSMarker()
-        marker.title = title
-        marker.position = coordinate
+        let cMarker = CustomGMSMarker()
+        cMarker.title = title
+        cMarker.position = coordinate
         if iconName != nil {
-            marker.icon = UIImage.init(named: iconName!)
+            cMarker.icon = UIImage.init(named: iconName!)
         }
-        if id != nil {
-            marker.id = id
+        if let id = marker?.id {
+            cMarker.id = id
         }
-        marker.type = type
-        marker.map = self.mapView
-        completion(marker)
+        if let type = marker?.type {
+            cMarker.type = type
+        }
+        cMarker.map = self.mapView
+        self.markersOnMap?.append(cMarker)
+        completion(cMarker)
     }
     
     /**
@@ -265,7 +273,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             // 既にマップ上にマーカが配置されている場合は削除
             self.goalMarker.map = nil
         }
-        self.putMarker(title: title, coordinate: coordinate, iconName: "GoalIcon", id: nil, type: MarkerType.goal) { marker in
+        let marker = Marker(id: nil, type: MarkerType.goal)
+        self.putMarker(title: title, coordinate: coordinate, iconName: "GoalIcon", marker: marker) { marker in
             self.goalMarker = marker
         }
     }
@@ -278,7 +287,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter id: マーカのID
      */
     internal func putPointMarker(title: String?, coordinate: CLLocationCoordinate2D, id: Int) {
-        self.putMarker(title: title, coordinate: coordinate, iconName: "PointIcon", id: id, type: MarkerType.point) { _ in
+        let marker = Marker(id: id, type: MarkerType.point)
+        self.putMarker(title: title, coordinate: coordinate, iconName: "PointIcon", marker: marker) { _ in
         }
     }
     

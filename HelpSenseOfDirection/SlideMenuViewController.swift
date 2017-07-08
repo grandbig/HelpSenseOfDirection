@@ -8,13 +8,15 @@
 
 import Foundation
 import UIKit
+import GoogleMaps
 import RealmSwift
 
 class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    private var markManager = MarkManager.sharedInstance
-    private var marks: Results<Mark>?
+    private var markManager = RealmMarkManager.sharedInstance
+    private var marks: Results<RealmMark>?
+    internal var markersOnMap: [CustomGMSMarker]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +49,11 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             self.marks = self.markManager.selectAll()
             // テーブルからの削除
             tableView.deleteRows(at: [indexPath], with: .fade)
-            // TODO: GoogleMap上のマーカを削除(self.mapView.mapsから削除？)
+            if let markers = self.markersOnMap {
+                for marker in markers where marker.id == markId {
+                    marker.map = nil
+                }
+            }
         }
     }
     
@@ -73,6 +79,11 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func deleteAll(_ sender: Any) {
         self.showConfirm(title: "確認", message: "全ての目印を削除しますか？", okCompletion: {
             self.markManager.deleteAll()
+            if let markers = self.markersOnMap {
+                for marker in markers {
+                    marker.map = nil
+                }
+            }
         }) {
         }
     }
