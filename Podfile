@@ -1,5 +1,6 @@
 # Podfile
 use_frameworks!
+platform :ios, '10.0'
 
 target "HelpSenseOfDirection" do
   # Normal libraries
