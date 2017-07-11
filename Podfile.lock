@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.5.0)
+  - Gecco (1.0.0)
   - GoogleMaps (2.3.1):
     - GoogleMaps/Maps (= 2.3.1)
   - GoogleMaps/Base (2.3.1)
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - Gecco (from `https://github.com/grandbig/Gecco.git`, branch `feature/spotlight_open`)
   - GoogleMaps
   - GooglePlaces
   - Nimble
@@ -25,8 +27,19 @@ DEPENDENCIES:
   - RealmSwift
   - SwiftyJSON
 
+EXTERNAL SOURCES:
+  Gecco:
+    :branch: feature/spotlight_open
+    :git: https://github.com/grandbig/Gecco.git
+
+CHECKOUT OPTIONS:
+  Gecco:
+    :commit: 27783d8dfba3fab93ad836c2227a452de605d0c2
+    :git: https://github.com/grandbig/Gecco.git
+
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Gecco: e662f949821e742997787bad7b730ccc0052e43c
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   Nimble: 657d000e11df8aebe27cdaf9d244de7f30ed87f7
@@ -35,6 +48,6 @@ SPEC CHECKSUMS:
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: f18911586fbe9812b87cf22eb355ecfa8ffdde51
+PODFILE CHECKSUM: a92ecc9baa511c832229355f9578f290be0e97c9
 
 COCOAPODS: 1.1.1

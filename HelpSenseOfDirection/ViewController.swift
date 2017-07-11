@@ -10,20 +10,27 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import SwiftyJSON
+import Gecco
 
-class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
-    private var locationManager: CLLocationManager?
-    private var currentLocation: CLLocationCoordinate2D?
-    private var placesClient: GMSPlacesClient!
-    private var goalMarker: GMSMarker = GMSMarker()
-    private var routePath: GMSPolyline = GMSPolyline()
-    private var zoomLevel: Float = 15.0
-    private var initView: Bool = false
-    private var markManager = RealmMarkManager.sharedInstance
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var startButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var startButtonBottomConstraint: NSLayoutConstraint!
+    internal var locationManager: CLLocationManager?
+    internal var currentLocation: CLLocationCoordinate2D?
+    internal var goalMarker: GMSMarker = GMSMarker()
+    internal var zoomLevel: Float = 15.0
+    internal var initView: Bool = false
+    internal var markManager = RealmMarkManager.sharedInstance
+    internal var tutorialStep: Int = 0
+    internal let spotlightViewController: SpotlightViewController = SpotlightViewController()
     internal var markCoordinate: CLLocationCoordinate2D?
     internal var markersOnMap: [CustomGMSMarker]? = [CustomGMSMarker]()
+    private var placesClient: GMSPlacesClient!
+    private var routePath: GMSPolyline = GMSPolyline()
+    private var isTutorial: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,67 +59,22 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 self.markManager.deleteAll()
             }
         }
+        
+        self.spotlightViewController.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !self.checkTutorialState() {
+            // チュートリアルが完了していない場合
+            self.tutorial(step: self.tutorialStep)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: GMSMapViewDelegate
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        
-        return false
-    }
-    
-    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-        if self.goalMarker.map != nil {
-            // 目的地マーカを設定した場合のみ途中ポイントマーカを設定可能
-            self.showConfirm(title: "確認", message: "ここに目印マーカを配置しますか？", okCompletion: {
-                // OKタップ時
-                self.markCoordinate = coordinate
-                // 画面遷移
-                self.performSegue(withIdentifier: "showPopupSegue", sender: nil)
-            }) {
-                // キャンセルタップ時は何もしない
-            }
-        }
-    }
-    
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        guard let cMarker = marker as? CustomGMSMarker else {
-            return nil
-        }
-        if cMarker.type == MarkerType.point, let cMarkerId = cMarker.id {
-            // 目印マーカの場合
-            let mark = self.markManager.selectById(cMarkerId)
-            var image = UIImage(named: "NoImageIcon")
-            if let imageData = mark?.image as Data? {
-                image = UIImage(data: imageData)
-            }
-            let view = MarkerInfoContentsView(frame: CGRect(x: 0, y: 0, width: 250, height: 265))
-            view.setData(title: mark?.title, detail: mark?.detail, image: image)
-            return view
-        }
-        
-        return nil
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        self.mapView.selectedMarker = nil
-    }
-    
-    // MARK: CLLocationManagerDelegate
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if !self.initView {
-            // 初期描画時のマップ中心位置の移動
-            self.currentLocation = locations.last?.coordinate
-            let camera = GMSCameraPosition.camera(withTarget: self.currentLocation!, zoom: self.zoomLevel)
-            self.mapView.camera = camera
-            self.locationManager?.stopUpdatingLocation()
-            self.initView = true
-        }
     }
     
     // MARK: Button Action
@@ -133,10 +95,19 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 let direction = Direction()
                 direction.getRoutes(from: myCurrentLocation, to: self.goalMarker.position) { (json) in
                     self.drawPolyline(steps: json)
+                    if !self.checkTutorialState() {
+                        // チュートリアルが完了していない場合
+                        self.tutorial(step: self.tutorialStep)
+                    }
                 }
             }
         }) { 
             // キャンセルした場合
+            if !self.checkTutorialState() {
+                // チュートリアルが完了していない場合
+                self.tutorial(step: (self.tutorialStep - 1))
+                self.tutorialStep -= 1
+            }
         }
     }
     
@@ -204,7 +175,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter okCompletion: OKタップ時のCallback
      - parameter cancelCompletion: Cancelタップ時のCallback
      */
-    private func showConfirm(title: String, message: String, okCompletion: @escaping (() -> Void), cancelCompletion: @escaping (() -> Void)) {
+    internal func showConfirm(title: String, message: String, okCompletion: @escaping (() -> Void), cancelCompletion: @escaping (() -> Void)) {
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
             okCompletion()
@@ -224,7 +195,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      - parameter message: アラートのメッセージ
      - parameter completion: OKタップ時のCallback
      */
-    private func showAlert(title: String, message: String, completion: @escaping (() -> Void)) {
+    internal func showAlert(title: String, message: String, completion: @escaping (() -> Void)) {
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
             completion()
@@ -344,5 +315,47 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
      */
     private func mapClear() {
         self.mapView.clear()
+    }
+    
+    // MARK: Tutorial
+    /**
+     チュートリアルの完了を保存する処理
+     */
+    private func saveFinishTutorial() {
+        UserDefaults.standard.set(true, forKey: "isTutorial")
+        UserDefaults.standard.synchronize()
+    }
+    
+    /**
+     チュートリアルの完了状態を取得する処理
+     
+     - returns: チュートリアルの完了状態
+     */
+    private func checkTutorialState() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isTutorial")
+    }
+    
+    /**
+     チュートリアル表示処理
+     
+     - parameter step: ステップ
+     */
+    internal func tutorial(step: Int) {
+        let screenSize = UIScreen.main.bounds.size
+        let screenHeight = screenSize.height
+        present(self.spotlightViewController, animated: true, completion: nil)
+        
+        switch step {
+        case 0:
+            let startButtonCenterX = self.startButtonLeftConstraint.constant + self.startButton.frame.size.width/2
+            let startButtonCenterY = screenHeight - self.startButtonBottomConstraint.constant - self.startButton.frame.size.height/2
+            self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: startButtonCenterX, y: startButtonCenterY), diameter: 50))
+        case 1:
+            let mapCenterX = self.mapView.frame.size.width/2
+            let mapCenterY = screenHeight - self.mapView.frame.size.height/2
+            self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: mapCenterX, y: mapCenterY), diameter: 200))
+        default:
+            break
+        }
     }
 }

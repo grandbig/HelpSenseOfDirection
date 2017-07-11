@@ -22,7 +22,7 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.placeTextArea.placeHolder = "詳細説明を入力"
+        self.placeTextArea.placeHolder = "目印マーカの詳細説明を入力"
         self.placeTextArea.placeHolderColor = UIColor(red: 0.75, green: 0.75, blue: 0.77, alpha: 1.0)
         self.placeTitleTextField.delegate = self
         self.createToolBar()
@@ -78,6 +78,7 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
                 vc.putPointMarker(title: nil, coordinate: markCoordinate, id: markId)
                 // 画面遷移
                 self.dismiss(animated: true, completion: {
+                    // TODO: ここ以外で前ページに戻ったことを検知して、チュートリアルの続きを描画したい
                 })
             }
         }) {
@@ -148,6 +149,23 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
         }
         alert.addAction(okAction)
         alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     警告モーダルの表示処理
+     
+     - parameter title: アラートのタイトル
+     - parameter message: アラートのメッセージ
+     - parameter completion: OKタップ時のCallback
+     */
+    private func showAlert(title: String, message: String, completion: @escaping (() -> Void)) {
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { _ in
+            completion()
+        }
+        alert.addAction(okAction)
+        
         present(alert, animated: true, completion: nil)
     }
 }
