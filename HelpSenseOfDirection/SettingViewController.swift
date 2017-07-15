@@ -55,4 +55,11 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    // MARK: Storyboard Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let backButton = UIBarButtonItem.init()
+        backButton.title = "戻る"
+        backButton.tintColor = UIColor.white
+        self.navigationItem.backBarButtonItem = backButton
+    }
 }

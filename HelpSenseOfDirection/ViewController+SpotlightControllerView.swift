@@ -14,7 +14,6 @@ extension ViewController: SpotlightViewControllerDelegate, UIGestureRecognizerDe
     
     // Spotlightをタップした場合
     func spotlightViewControllerTapped(_ viewController: SpotlightViewController, isInsideSpotlight: Bool) {
-        
         if isInsideSpotlight {
             switch self.tutorialStep {
             case 0:
@@ -27,6 +26,22 @@ extension ViewController: SpotlightViewControllerDelegate, UIGestureRecognizerDe
                     self.showAlert(title: "確認", message: "長押しをしてください", completion: {
                         self.tutorial(step: self.tutorialStep)
                     })
+                })
+            case 2:
+                self.tutorialStep += 1
+                self.spotlightViewController.dismiss(animated: true, completion: {
+                    if let markersOnMap = self.markersOnMap {
+                        for marker in markersOnMap where marker.type == MarkerType.point {
+                            self.mapView.selectedMarker = marker
+                        }
+                    }
+                })
+            case 3:
+                self.tutorialStep += 1
+                self.saveFinishTutorial()
+                self.spotlightViewController.dismiss(animated: true, completion: {
+                    self.clearRoutePath()
+                    self.clearMap()
                 })
             default:
                 break
