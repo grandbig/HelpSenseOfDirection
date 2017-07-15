@@ -19,6 +19,10 @@
 		2E0DEC481F0BDFB20039A3B8 /* MarkerInfoContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC471F0BDFB20039A3B8 /* MarkerInfoContentsView.swift */; };
 		2E0DEC4A1F112DBC0039A3B8 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC491F112DBC0039A3B8 /* Marker.swift */; };
 		2E0DEC4C1F11419B0039A3B8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC4B1F11419B0039A3B8 /* SettingViewController.swift */; };
+		2E0DEC501F128B7E0039A3B8 /* ViewController+GMSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC4F1F128B7E0039A3B8 /* ViewController+GMSMapView.swift */; };
+		2E0DEC521F128CD50039A3B8 /* ViewController+SpotlightControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC511F128CD50039A3B8 /* ViewController+SpotlightControllerView.swift */; };
+		2E0DEC541F128DED0039A3B8 /* ViewController+CLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC531F128DED0039A3B8 /* ViewController+CLLocationManager.swift */; };
+		2E0DEC561F1A5F150039A3B8 /* AnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DEC551F1A5F150039A3B8 /* AnnotationViewController.swift */; };
 		2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351531EF57E7C004E162C /* AppDelegate.swift */; };
 		2E8351561EF57E7C004E162C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8351551EF57E7C004E162C /* ViewController.swift */; };
 		2E8351591EF57E7C004E162C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E8351571EF57E7C004E162C /* Main.storyboard */; };
@@ -65,6 +69,10 @@
 		2E0DEC471F0BDFB20039A3B8 /* MarkerInfoContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfoContentsView.swift; path = View/MarkerInfoContentsView.swift; sourceTree = "<group>"; };
 		2E0DEC491F112DBC0039A3B8 /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Marker.swift; path = Model/Marker.swift; sourceTree = "<group>"; };
 		2E0DEC4B1F11419B0039A3B8 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		2E0DEC4F1F128B7E0039A3B8 /* ViewController+GMSMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+GMSMapView.swift"; sourceTree = "<group>"; };
+		2E0DEC511F128CD50039A3B8 /* ViewController+SpotlightControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+SpotlightControllerView.swift"; sourceTree = "<group>"; };
+		2E0DEC531F128DED0039A3B8 /* ViewController+CLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+CLLocationManager.swift"; sourceTree = "<group>"; };
+		2E0DEC551F1A5F150039A3B8 /* AnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationViewController.swift; sourceTree = "<group>"; };
 		2E8351501EF57E7C004E162C /* HelpSenseOfDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpSenseOfDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8351531EF57E7C004E162C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E8351551EF57E7C004E162C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -140,9 +148,13 @@
 			isa = PBXGroup;
 			children = (
 				2E0DEC421F08F0A80039A3B8 /* CreateMarkerViewController.swift */,
-				2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */,
 				2E8351551EF57E7C004E162C /* ViewController.swift */,
+				2E0DEC531F128DED0039A3B8 /* ViewController+CLLocationManager.swift */,
+				2E0DEC4F1F128B7E0039A3B8 /* ViewController+GMSMapView.swift */,
+				2E0DEC511F128CD50039A3B8 /* ViewController+SpotlightControllerView.swift */,
 				2E0DEC4B1F11419B0039A3B8 /* SettingViewController.swift */,
+				2E0DEC321F073F3D0039A3B8 /* SlideMenuViewController.swift */,
+				2E0DEC551F1A5F150039A3B8 /* AnnotationViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -557,12 +569,16 @@
 				2E0DEC4C1F11419B0039A3B8 /* SettingViewController.swift in Sources */,
 				2E0DEC431F08F0A80039A3B8 /* CreateMarkerViewController.swift in Sources */,
 				2E0DEC391F076FE30039A3B8 /* RealmMarkManager.swift in Sources */,
+				2E0DEC541F128DED0039A3B8 /* ViewController+CLLocationManager.swift in Sources */,
 				2E0DEC291EFFFBE90039A3B8 /* Direction.swift in Sources */,
 				2E0DEC3B1F0777A20039A3B8 /* UIPlaceHolderTextView.swift in Sources */,
 				2E0DEC4A1F112DBC0039A3B8 /* Marker.swift in Sources */,
 				2E0DEC331F073F3D0039A3B8 /* SlideMenuViewController.swift in Sources */,
 				2E0DEC2B1F051E430039A3B8 /* CustomGMSMarker.swift in Sources */,
 				2E8351541EF57E7C004E162C /* AppDelegate.swift in Sources */,
+				2E0DEC561F1A5F150039A3B8 /* AnnotationViewController.swift in Sources */,
+				2E0DEC521F128CD50039A3B8 /* ViewController+SpotlightControllerView.swift in Sources */,
+				2E0DEC501F128B7E0039A3B8 /* ViewController+GMSMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

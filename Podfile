@@ -9,6 +9,7 @@ target "HelpSenseOfDirection" do
   pod 'GooglePlaces'
   pod 'Alamofire', '~> 4.4'
   pod 'SwiftyJSON'
+  pod 'Gecco', :git => 'https://github.com/grandbig/Gecco.git', :branch => 'feature/spotlight_open'
 
   abstract_target 'Tests' do
     inherit! :search_paths

@@ -100,6 +100,43 @@
             </objects>
             <point key="canvasLocation" x="1093.5999999999999" y="-546.47676161919048"/>
         </scene>
+        <!--Annotation View Controller-->
+        <scene sceneID="xhS-jg-Fwj">
+            <objects>
+                <viewController storyboardIdentifier="Annotation" id="DNG-Sn-yGm" customClass="AnnotationViewController" customModule="HelpSenseOfDirection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WrH-P9-9tn"/>
+                        <viewControllerLayoutGuide type="bottom" id="NFQ-5l-lJO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EGf-nS-fC1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEb-Jp-kzE">
+                                <rect key="frame" x="16" y="90" width="343" height="41"/>
+                                <string key="text">チュートリアルをはじめます
+1. スタートボタンをタップ</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zEb-Jp-kzE" firstAttribute="top" secondItem="WrH-P9-9tn" secondAttribute="bottom" constant="70" id="B4M-0q-MHP"/>
+                            <constraint firstItem="zEb-Jp-kzE" firstAttribute="leading" secondItem="EGf-nS-fC1" secondAttribute="leadingMargin" id="hef-Uu-ND3"/>
+                            <constraint firstItem="zEb-Jp-kzE" firstAttribute="trailing" secondItem="EGf-nS-fC1" secondAttribute="trailingMargin" id="sjI-3E-6WF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="zEb-Jp-kzE" id="Ztn-kv-fCe"/>
+                        <outlet property="labelConstraintY" destination="B4M-0q-MHP" id="4Vm-SA-vUc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ol-5L-TYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="269.60000000000002" y="328.78560719640183"/>
+        </scene>
         <!--Create Marker View Controller-->
         <scene sceneID="yCP-QI-lBT">
             <objects>
@@ -155,7 +192,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="タイトルを入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BCB-Q0-VeM">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="目印マーカのタイトルを入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BCB-Q0-VeM">
                                 <rect key="frame" x="16" y="80" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -235,7 +272,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kxM-3N-Cr4" customClass="SettingsCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" id="kxM-3N-Cr4">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kxM-3N-Cr4" id="UOs-Go-q3o">
@@ -278,7 +315,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hxk-z1-M8b">
                                 <rect key="frame" x="8" y="8" width="359" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">【RealmSwift】
+                                <mutableString key="text">【RealmSwift】
 
 TABLE OF CONTENTS
 
@@ -525,8 +562,31 @@ or authorize the transfer of, directly or indirectly, of the Software to any
 Prohibited Jurisdiction, or otherwise in violation of any such restrictions or
 regulations.
 
+【Gecco】
+The MIT License (MIT)
+
+Copyright (c) 2016 yukiasai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 【Icons】
-All icons are based on 'Material Design Icons' by Google. Licensed under CC BY.</string>
+All icons are based on 'Material Design Icons' by Google. Licensed under CC BY.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
