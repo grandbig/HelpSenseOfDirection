@@ -28,7 +28,6 @@ class ViewController: UIViewController {
     internal var spotlightViewController: AnnotationViewController!
     internal var markCoordinate: CLLocationCoordinate2D?
     internal var markersOnMap: [CustomGMSMarker]? = [CustomGMSMarker]()
-    internal var isTutorial: Bool = false
     private var placesClient: GMSPlacesClient!
     private var routePath: GMSPolyline = GMSPolyline()
     
@@ -59,6 +58,7 @@ class ViewController: UIViewController {
                 self.markManager.deleteAll()
             }
         }
+        
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         self.spotlightViewController = storyboard.instantiateViewController(withIdentifier: "Annotation") as? AnnotationViewController
         self.spotlightViewController?.delegate = self
@@ -328,11 +328,18 @@ class ViewController: UIViewController {
     }
     
     /**
+     チュートリアルの完了を削除する素より
+     */
+    internal func removeTutorial() {
+        UserDefaults.standard.removeObject(forKey: "isTutorial")
+    }
+    
+    /**
      チュートリアルの完了状態を取得する処理
      
      - returns: チュートリアルの完了状態
      */
-    private func checkTutorialState() -> Bool {
+    internal func checkTutorialState() -> Bool {
         return UserDefaults.standard.bool(forKey: "isTutorial")
     }
     
@@ -342,37 +349,40 @@ class ViewController: UIViewController {
      - parameter step: ステップ
      */
     internal func tutorial(step: Int) {
-        let screenSize = UIScreen.main.bounds.size
-        let screenHeight = screenSize.height
-        present(self.spotlightViewController, animated: true, completion: nil)
         
-        switch step {
-        case 0:
-            let startButtonCenterX = self.startButtonLeftConstraint.constant + self.startButton.frame.size.width/2
-            let startButtonCenterY = screenHeight - self.startButtonBottomConstraint.constant - self.startButton.frame.size.height/2
-            self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: startButtonCenterX, y: startButtonCenterY), diameter: 50))
-        case 1:
-            let mapCenterX = self.mapView.frame.size.width/2
-            let mapCenterY = screenHeight - self.mapView.frame.size.height/2
-            self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: mapCenterX, y: mapCenterY), diameter: 200))
-            self.spotlightViewController.updateLabel("2. マップを長押しして配置したいマーカを作成します")
-        case 2:
-            if let coordinate = self.markCoordinate {
-                let point = self.mapView.projection.point(for: coordinate)
-                let pointY = point.y + UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
-                self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: point.x, y: pointY), diameter: 100))
-                self.spotlightViewController.updateLabel("3. 設置したマーカをタップするとマーカの情報を見ることができます")
+        present(self.spotlightViewController, animated: true) {
+            let screenSize = UIScreen.main.bounds.size
+            let screenHeight = screenSize.height
+            
+            switch step {
+            case 0:
+                let startButtonCenterX = self.startButtonLeftConstraint.constant + self.startButton.frame.size.width/2
+                let startButtonCenterY = screenHeight - self.startButtonBottomConstraint.constant - self.startButton.frame.size.height/2
+                self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: startButtonCenterX, y: startButtonCenterY), diameter: 50))
+                self.spotlightViewController.updateLabel("チュートリアルをはじめます\n1. スタートボタンをタップ")
+            case 1:
+                let mapCenterX = self.mapView.frame.size.width/2
+                let mapCenterY = screenHeight - self.mapView.frame.size.height/2
+                self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: mapCenterX, y: mapCenterY), diameter: 200))
+                self.spotlightViewController.updateLabel("2. マップを長押しして配置したいマーカを作成します")
+            case 2:
+                if let coordinate = self.markCoordinate {
+                    let point = self.mapView.projection.point(for: coordinate)
+                    let pointY = point.y + UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+                    self.spotlightViewController.spotlightView.appear(Spotlight.Oval(center: CGPoint(x: point.x, y: pointY), diameter: 100))
+                    self.spotlightViewController.updateLabel("3. 設置したマーカをタップするとマーカの情報を見ることができます")
+                }
+            case 3:
+                let pointX = self.mapView.frame.size.width/2
+                let pointY = self.spotlightViewController.labelConstraintY.constant/2 + UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+                let labelWidth = self.spotlightViewController.label.frame.size.width
+                let labelHeight = self.spotlightViewController.label.frame.size.height
+                let spot = Spotlight.RoundedRect(center: CGPoint(x: pointX, y: pointY), size: CGSize(width: labelWidth, height: labelHeight), cornerRadius: 4.0)
+                self.spotlightViewController.spotlightView.appear(spot)
+                self.spotlightViewController.updateLabel("では、アプリをはじめましょう！", blackColor: true)
+            default:
+                break
             }
-        case 3:
-            let pointX = self.mapView.frame.size.width/2
-            let pointY = self.spotlightViewController.labelConstraintY.constant/2 + UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
-            let labelWidth = self.spotlightViewController.label.frame.size.width
-            let labelHeight = self.spotlightViewController.label.frame.size.height
-            let spot = Spotlight.RoundedRect(center: CGPoint(x: pointX, y: pointY), size: CGSize(width: labelWidth, height: labelHeight), cornerRadius: 4.0)
-            self.spotlightViewController.spotlightView.appear(spot)
-            self.spotlightViewController.updateLabel("では、アプリをはじめましょう！", blackColor: true)
-        default:
-            break
         }
     }
 }

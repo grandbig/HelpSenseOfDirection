@@ -20,7 +20,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.rowTitle = ["アプリの使い方", "ライセンス"]
+        self.rowTitle = ["アプリのチュートリアル", "ライセンス"]
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,8 +34,6 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.row {
-        case 0:
-            performSegue(withIdentifier: "aboutAppSegue", sender: nil)
         case 1:
             performSegue(withIdentifier: "licenseSegue", sender: nil)
         default:
@@ -49,10 +47,22 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
-        cell.textLabel?.text = self.rowTitle[indexPath.row]
+        let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? ViewController
         
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell: CustomCell = (tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as? CustomCell)!
+            // チュートリアル完了の場合はスイッチOFF
+            cell.sw.isOn = (vc?.checkTutorialState())! ? false : true
+            return cell
+        case 1:
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
+            cell.textLabel?.text = self.rowTitle[indexPath.row]
+            return cell
+        default:
+            break
+        }
+        return tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
     }
     
     // MARK: Storyboard Segue
@@ -62,4 +72,22 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         backButton.tintColor = UIColor.white
         self.navigationItem.backBarButtonItem = backButton
     }
+    
+    // MARK: Button Action
+    @IBAction func changeValue(_ sender: Any) {
+        // 遷移元ViewControllerの取得
+        guard let nav = self.navigationController, let vc = nav.viewControllers[nav.viewControllers.count - 2] as? ViewController else {
+            return
+        }
+        
+        if (sender as AnyObject).isOn {
+            // OFF → ON
+            vc.removeTutorial()
+            vc.tutorialStep = 0
+        } else {
+            // ON → OFF
+            // 何もしない
+        }
+    }
+    
 }

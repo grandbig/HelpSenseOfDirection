@@ -27,6 +27,8 @@ class AnnotationViewController: SpotlightViewController {
         self.label.text = text
         if blackColor {
             self.label.textColor = UIColor.black
+        } else {
+            self.label.textColor = UIColor.white
         }
     }
 }

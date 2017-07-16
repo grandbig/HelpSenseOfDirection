@@ -77,7 +77,7 @@ class CreateMarkerViewController: UIViewController, UIImagePickerControllerDeleg
                 // マップに目印マーカを描画
                 vc.putPointMarker(title: nil, coordinate: markCoordinate, id: markId)
                 
-                if !vc.isTutorial {
+                if !vc.checkTutorialState() {
                     // チュートリアルが完了していない場合
                     vc.tutorialStep += 1
                 }
