@@ -40,8 +40,21 @@ class MarkerInfoContentsView: UIView {
      - parameter image: 画像
      */
     func setData(title: String?, detail: String?, image: UIImage?) {
-        self.title.text = title ?? "-"
-        self.detail.text = detail ?? "-"
+        // タイトルの設定
+        if let titleTextCount = title?.characters.count, titleTextCount > 0 {
+            self.title.text = title
+        } else {
+            self.title.text = "タイトルはありません。"
+            self.title.textColor = UIColor.gray
+        }
+        // 詳細説明の設定
+        if let detailTextCount = detail?.characters.count, detailTextCount > 0 {
+            self.detail.text = detail
+        } else {
+            self.detail.text = "説明はありません。"
+            self.title.textColor = UIColor.gray
+        }
+        // 画像の設定
         self.imageView.image = image ?? UIImage(named: "NoImageIcon")
     }
 }
