@@ -82,25 +82,33 @@ class ViewController: UIViewController {
     @IBAction func start(_ sender: Any) {
         self.showTextComfirm(title: "確認", message: "目的地を入力してください", okCompletion: { (address: String) in
             // OKした場合
-            self.clearRoutePath()
-            let geo = Geocoding.init()
-            geo.geocoding(address: address) { (coordinate: CLLocationCoordinate2D) in
-                guard let myCurrentLocation = self.currentLocation else {
-                    return
-                }
-                let marker = Marker(id: nil, type: MarkerType.start)
-                self.putMarker(title: "スタート地点", coordinate: myCurrentLocation, iconName: "StartIcon", marker: marker, completion: { _ in })
-                self.putGoalMarker(title: "ゴール地点", coordinate: coordinate)
-                self.changeCameraPosition(coordinate: coordinate)
-                // スタート地点からゴール地点までの道のりを描画
-                let direction = Direction()
-                direction.getRoutes(from: myCurrentLocation, to: self.goalMarker.position) { (json) in
-                    self.drawPolyline(steps: json)
-                    if !self.checkTutorialState() {
-                        // チュートリアルが完了していない場合
-                        self.tutorial(step: self.tutorialStep)
+            if address.characters.count > 0 {
+                // 目的地が入力されている場合
+                self.clearRoutePath()
+                let geo = Geocoding.init()
+                geo.geocoding(address: address) { (coordinate: CLLocationCoordinate2D) in
+                    guard let myCurrentLocation = self.currentLocation else {
+                        return
+                    }
+                    let marker = Marker(id: nil, type: MarkerType.start)
+                    self.putMarker(title: "スタート地点", coordinate: myCurrentLocation, iconName: "StartIcon", marker: marker, completion: { _ in })
+                    self.putGoalMarker(title: "ゴール地点", coordinate: coordinate)
+                    self.changeCameraPosition(coordinate: coordinate)
+                    // スタート地点からゴール地点までの道のりを描画
+                    let direction = Direction()
+                    direction.getRoutes(from: myCurrentLocation, to: self.goalMarker.position) { (json) in
+                        self.drawPolyline(steps: json)
+                        if !self.checkTutorialState() {
+                            // チュートリアルが完了していない場合
+                            self.tutorial(step: self.tutorialStep)
+                        }
                     }
                 }
+            } else {
+                // 目的地が入力されていない場合
+                self.showAlert(title: "アラート", message: "目的地を入力してください", completion: { 
+                    self.startButton.sendActions(for: .touchUpInside)
+                })
             }
         }) { 
             // キャンセルした場合
