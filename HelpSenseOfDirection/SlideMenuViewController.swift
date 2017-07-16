@@ -86,6 +86,8 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                             marker.map = nil
                         }
                     }
+                    // テーブルビューのリロード
+                    self.tableView.reloadData()
                 }) {
                 }
             } else {
