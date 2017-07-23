@@ -52,7 +52,7 @@ class MarkerInfoContentsView: UIView {
             self.detail.text = detail
         } else {
             self.detail.text = "説明はありません。"
-            self.title.textColor = UIColor.gray
+            self.detail.textColor = UIColor.gray
         }
         // 画像の設定
         self.imageView.image = image ?? UIImage(named: "NoImageIcon")

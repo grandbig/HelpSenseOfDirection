@@ -42,6 +42,13 @@ extension ViewController: SpotlightViewControllerDelegate, UIGestureRecognizerDe
                 self.spotlightViewController.dismiss(animated: true, completion: {
                     self.clearRoutePath()
                     self.clearMap()
+                    // チュートリアル完了後にRealm内のマーカを削除する
+                    if let marks = self.markManager.selectAll() {
+                        if marks.count > 0 {
+                            // 既にマーカを保存している場合は全て削除する
+                            self.markManager.deleteAll()
+                        }
+                    }
                 })
             default:
                 break
